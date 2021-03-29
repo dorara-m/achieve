@@ -1,21 +1,23 @@
 <template>
   <h2>ログ一覧</h2>
   <ul>
-    <li>
-      <p>2021-01-01</p>
-      <p>30%</p>
-      <p>コメントAコメントAコメントA</p>
-    </li>
-    <li>
-      <p>2021-01-01</p>
-      <p>30%</p>
-      <p>コメントAコメントAコメントA</p>
-    </li>
+    <LogItem v-for="(item,index) in val"
+      :key="index"
+      :date="item.date"
+      :percent="item.percent"
+      :memo="item.memo"
+    />
   </ul>
 </template>
 
 <script>
+import LogItem from './LogItem.vue'
+
 export default {
   name: 'LogArea',
+  props: ['val'],
+  components: {
+    LogItem
+  }
 }
 </script>
