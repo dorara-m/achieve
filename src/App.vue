@@ -17,25 +17,33 @@ export default {
   },
   data() {
     return {
-      items: [
-        {
-          date: '2021-01-01',
-          percent: '10',
-          memo: 'ひとこと'
-        }
-      ]
+      items: []
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('datelist')) {
+      this.items = JSON.parse(localStorage.getItem('datelist'))
     }
   },
   methods: {
     handleAdd: function(dataSet) {
       // もし既存の日付ならここでpushではなく上書きにする。
 
-      this.items.push(dataSet)
       console.log(dataSet)
+      
+      this.items.push(dataSet)
       console.log(this.items)
+
+      this.saveItems()
+    },
+    saveItems() {
+      const parsed = JSON.stringify(this.items)
+      localStorage.setItem('datalist', parsed);
     }
   },
-  
+
+  // setupでうまく動作せず、いつか調査↓
+
   // setup() {
   //   const items = ref([])
   //   const handleAdd = function(dateSet) {
