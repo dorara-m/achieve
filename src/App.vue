@@ -21,19 +21,21 @@ export default {
     }
   },
   mounted() {
-    if (localStorage.getItem('datelist')) {
-      this.items = JSON.parse(localStorage.getItem('datelist'))
+    if (localStorage.getItem('datalist')) {
+      this.items = JSON.parse(localStorage.getItem('datalist'))
     }
   },
   methods: {
     handleAdd: function(dataSet) {
-      // もし既存の日付ならここでpushではなく上書きにする。
-
-      console.log(dataSet)
+      // datasetのdateと、itemsに既にあるdateを1つ1つ比較、同値のものあればその配列indexを保持しておいて、そこにdatasetをまるっと上書き
+      for (let i=0; i<this.items.length; i++) {
+        if (dataSet.date == this.items[i].date) {
+          this.items[i] = dataSet
+          return
+        }
+      }
       
       this.items.push(dataSet)
-      console.log(this.items)
-
       this.saveItems()
     },
     saveItems() {
