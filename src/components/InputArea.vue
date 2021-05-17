@@ -13,7 +13,7 @@
     <label for="theMemo">メモ</label>
     <input name="theMemo" type="text" ref="memo">
   </div>
-  <button @click="sendItem">アイテム追加</button>
+  <button @click="sendItem">追加</button>
 </template>
 
 <script>
