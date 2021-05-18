@@ -11,8 +11,11 @@ npm run dev
 githubpagesで動かせないので、一旦は手元で動かしていく。
 
 ## todo
+* [add] 平均達成率 @doing
 * [fix] GithubPagesで動かない問題（もしかしたらviteでbuildをしてない可能性？
-* [add] 平均達成率
+* [mod] 日付順にデータを並び替える機能
+* [mod] データを削除する機能
+* [mod] データを編集する機能
 * [mod] 見た目
 * [mod] inputAreaのvueを整理
 * [mod] sass対応

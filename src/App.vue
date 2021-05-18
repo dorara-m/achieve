@@ -3,17 +3,20 @@
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
   <InputArea v-on:add="handleAdd" />
   <LogArea :val="items" />
+  <AverageArea :val="items" />
 </template>
 
 <script>
 import InputArea from './components/InputArea.vue'
 import LogArea from './components/LogArea.vue'
+import AverageArea from './components/AverageArea.vue'
 
 export default {
   name: 'App',
   components: {
     InputArea,
-    LogArea
+    LogArea,
+    AverageArea
   },
   data() {
     return {
@@ -35,7 +38,7 @@ export default {
         }
       }
       
-      this.items.push(dataSet)
+      this.items.unshift(dataSet)
       this.saveItems()
     },
     saveItems() {
