@@ -10,9 +10,13 @@ npm run dev
 毎日、日付、予定の達成率、コメントを記録していくアプリ。
 githubpagesで動かせないので、一旦は手元で動かしていく。
 
+## done
+* [fix] GithubPagesで動かない問題 -> viteでbuildしてないから -> netlifyに移行して解決
+* [fix] データが一部消し飛んでる問題 -> 上書き編集したときにsaveItemsしてなかった
+
 ## todo
 * [add] 平均達成率 @doing
-* [fix] GithubPagesで動かない問題（もしかしたらviteでbuildをしてない可能性？
+* [mod] メモのインプットをテキストエリアに
 * [mod] 日付順にデータを並び替える機能
 * [mod] データを削除する機能
 * [mod] データを編集する機能

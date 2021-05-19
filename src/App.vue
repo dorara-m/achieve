@@ -34,6 +34,7 @@ export default {
       for (let i=0; i<this.items.length; i++) {
         if (dataSet.date == this.items[i].date) {
           this.items[i] = dataSet
+          this.saveItems()
           return
         }
       }
