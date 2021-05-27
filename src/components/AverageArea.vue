@@ -1,7 +1,7 @@
 <template>
   <h2>平均値</h2>
-  <p>直近5日の平均：{{fiveDaysAverage}}%</p>
-  <p class="small">※日数が5日に満たない場合は全値の平均になります</p>
+  <p>{{fiveDaysAverage}}</p>
+  <p class="small">※未入力の項目がある場合は5日以下の値が出ます（直近3日分など</p>
   <p>今月の平均：{{thisMonthAverage}}%</p>
 </template>
 
@@ -11,17 +11,32 @@ export default {
   name: 'AverageArea',
   props: ['val'],
   computed: {
-    // 上から5つが直近5日のものと想定して組む
     fiveDaysAverage: function() {
       let sum = 0
+      let numOfTargets = 0
       const vals = this.val
-      // 5日に満たない場合の処理
-      const numOfVal = vals.length >= 5 ? 5 : vals.length
-      // 平均する処理。
-      for (let i=0; i<numOfVal; i++) {
-        sum += Number(vals[i].percent)
+      // 今日の日付を受け取る
+      const today = dayjs()
+      // 直近5日のときだけsumにいれる
+      for (let i=0; i<vals.length; i++) {
+        const valDate = dayjs(vals[i].date)
+        // 今日から前5日以内のデータだけ取ってくる
+        // 当てはまる日が5日もない場合->そもそもカウントされない。
+        if (today.diff(valDate, 'day') <= 5) {
+          // この条件だと未来の日数もカウントしちゃう…いつか解決
+          sum += Number(vals[i].percent)
+          numOfTargets++
+        }
       }
-      return Math.round(sum / numOfVal)
+      // そもそも当てはまる日が0の場合に対応
+      if (numOfTargets != 0) {
+        const average = Math.round(sum / numOfTargets)
+        // 5日を満たすとは限らないので直近何日かを返すように。
+        return `直近${numOfTargets}日の平均 : ${average}%`
+      } else {
+        return '直近の記録がありません。'
+      }
+      
     },
     // 1ヶ月分の平均処理
     thisMonthAverage: function() {
@@ -30,14 +45,12 @@ export default {
 
       // 今月にあたるデータを抽出する。
       const vals = this.val
-      let arr = []
       let numOfTargets = 0
       let sum = 0
-      // 全部のvalのdateをday.jsに通して月の数値のみ取る。(dateMonth)それと今月を比べて、dateMonth - thisMonth = 0の範囲を今月のデータと判定する。その範囲だけsumに加算、個数を知りたいのでそれ用の変数に1ずつ足しておく。
+      // 全部のvalのdateをday.jsに通して月の数値のみ取る。(valMonth)それと今月を比べて、valMonth - thisMonth = 0の範囲を今月のデータと判定する。その範囲だけsumに加算、個数を知りたいのでそれ用の変数に1ずつ足しておく。
       for (let i=0; i<vals.length; i++) {
-        const dateMonth = dayjs(vals[i].date).month()
-        if (dateMonth - thisMonth == 0) {
-          arr.push(vals[i].percent)
+        const valMonth = dayjs(vals[i].date).month()
+        if (valMonth - thisMonth == 0) {
           numOfTargets += 1
           sum += Number(vals[i].percent)
         }
