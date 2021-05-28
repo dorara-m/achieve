@@ -2,16 +2,16 @@
   <h2>達成率を入力してください。</h2>
   <!-- 以下のinput系をコンポーネントにわける? -->
   <div class="inputItem">
-    <label for="theDay">日付</label>
+    <div class="inputItem_ttl">日付</div>
     <input name="theDay" type="date" ref="day">
   </div>
   <div class="inputItem">
+    <div class="inputItem_ttl">達成率</div>
     <input name="thePercent" type="number" ref="percent">
-    <label for="thePercent">%</label>
   </div>
   <div class="inputItem">
-    <label for="theMemo">メモ</label>
-    <input name="theMemo" type="text" ref="memo">
+    <div class="inputItem_ttl">メモ</div>
+    <textarea name="theMemo" ref="memo" id="" cols="30" rows="10"></textarea>
   </div>
   <button @click="sendItem">追加</button>
 </template>
