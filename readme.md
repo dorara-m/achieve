@@ -18,13 +18,15 @@ npm run dev
 * [mod] メモのインプットをテキストエリアに
 
 ## todo
-* [mod] 曜日を表示したい
+* [mod] 曜日を表示したい @doing 
+  * computedで引数もてない問題
 * [mod] 日付順にデータを並び替える機能
 * [mod] データを削除する機能
 * [mod] データを編集する機能
 * [add] 先月, 先々月も呼び出せるように関数うまいことする
 * [add] 先月の平均とかをプルダウンで呼び出せるように
 * [mod] 見た目
+* [mod] textAreaでいれた改行が表示データにも反映されるように
 * [fix] fiveDaysAverageで、未来の値も受け取っちゃう問題
 * [mod] inputAreaのvueを整理
 * [mod] sass対応
