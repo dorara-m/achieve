@@ -2,7 +2,7 @@
   <h2>平均値</h2>
   <p>{{fiveDaysAverage}}</p>
   <p class="small">※未入力の項目がある場合は5日以下の値が出ます（直近3日分など</p>
-  <p>今月の平均：{{thisMonthAverage}}%</p>
+  <p>{{thisMonthAverage}}</p>
 </template>
 
 <script>
@@ -42,7 +42,6 @@ export default {
     thisMonthAverage: function() {
       // 今月を取得する
       const thisMonth = dayjs().month()
-
       // 今月にあたるデータを抽出する。
       const vals = this.val
       let numOfTargets = 0
@@ -51,11 +50,16 @@ export default {
       for (let i=0; i<vals.length; i++) {
         const valMonth = dayjs(vals[i].date).month()
         if (valMonth - thisMonth == 0) {
-          numOfTargets += 1
+          numOfTargets++
           sum += Number(vals[i].percent)
         }
       }
-      return Math.round(sum / numOfTargets)
+      // 今月のデータが0個の場合
+      if (sum == 0) {
+        return '今月の入力がまだありません'
+      } else {
+        return `${thisMonth + 1}月の平均：${Math.round(sum / numOfTargets)}%`
+      }
     }
   }
 }
