@@ -56,7 +56,7 @@ export default {
       }
       // 今月のデータが0個の場合
       if (sum == 0) {
-        return '今月の入力がまだありません'
+        return `${thisMonth + 1}月の入力がまだありません`
       } else {
         return `${thisMonth + 1}月の平均：${Math.round(sum / numOfTargets)}%`
       }
