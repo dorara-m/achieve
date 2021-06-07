@@ -10,6 +10,7 @@
 import InputArea from './components/InputArea.vue'
 import LogArea from './components/LogArea.vue'
 import AverageArea from './components/AverageArea.vue'
+import dayjs from 'dayjs'
 
 export default {
   name: 'App',
@@ -39,7 +40,13 @@ export default {
         }
       }
       
-      this.items.unshift(dataSet)
+      this.items.push(dataSet)
+      // ここでitemsを日付で降順に並び替え
+      this.items.sort((a,b) => {
+        return dayjs(b.date) - dayjs(a.date)
+      })
+      
+
       this.saveItems()
     },
     saveItems() {
