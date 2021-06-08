@@ -2,7 +2,7 @@
   <h1>あちーぶ on Vite</h1>
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
   <InputArea v-on:add="handleAdd" />
-  <LogArea :val="items" />
+  <LogArea :val="items" @delete="handleDelete" />
   <AverageArea :val="items" />
 </template>
 
@@ -41,12 +41,17 @@ export default {
       }
       
       this.items.push(dataSet)
+      
+      // [todo] 日付が古い場合だけsortを発動する。
       // ここでitemsを日付で降順に並び替え
       this.items.sort((a,b) => {
         return dayjs(b.date) - dayjs(a.date)
       })
-      
 
+      this.saveItems()
+    },
+    handleDelete: function(index) {
+      this.items.splice(index, 1)
       this.saveItems()
     },
     saveItems() {

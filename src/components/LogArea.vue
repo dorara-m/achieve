@@ -6,6 +6,7 @@
       :date="item.date"
       :percent="item.percent"
       :memo="item.memo"
+      @delete="dataDelete(index)"
     />
   </ul>
 </template>
@@ -16,8 +17,14 @@ import LogItem from './LogItem.vue'
 export default {
   name: 'LogArea',
   props: ['val'],
+  emits: ['delete'],
   components: {
     LogItem
+  },
+  methods: {
+    dataDelete: function(index) {
+      this.$emit('delete', index)
+    }
   }
 }
 </script>

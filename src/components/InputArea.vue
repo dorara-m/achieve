@@ -29,7 +29,7 @@ export default {
       
       // %が空の場合処理中断 - 日付はデフォルトで設定されている。
       if (!thePercent.value.length) {
-        alert('入力なし')
+        alert('達成率の入力がありません。')
         return
       }
 
