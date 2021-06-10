@@ -40,13 +40,20 @@ export default {
         }
       }
       
-      this.items.push(dataSet)
-      
-      // [todo] 日付が古い場合だけsortを発動する。
-      // ここでitemsを日付で降順に並び替え
-      this.items.sort((a,b) => {
-        return dayjs(b.date) - dayjs(a.date)
-      })
+      // 追加する前の状態で最新の日付をとっておく
+      const latestDate = this.items[0].date
+
+      this.items.unshift(dataSet)
+
+      // 日付が最新より古い場合だけ日付順sortを発動する。
+      if (dayjs(dataSet.date).diff(dayjs(latestDate), 'day') < 0) {
+        console.log('過去の日付')
+        // ここでitemsを日付順に降順
+        this.items.sort((a,b) => {
+          return dayjs(b.date) - dayjs(a.date)
+        })
+      }
+
 
       this.saveItems()
     },
