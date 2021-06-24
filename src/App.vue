@@ -2,7 +2,7 @@
   <h1>あちーぶ on Vite</h1>
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
   <InputArea v-on:add="handleAdd" />
-  <LogArea :val="items" @delete="handleDelete" />
+  <LogArea :val="items" @delete="handleDelete" @update="handleUpdate" />
   <AverageArea :val="items" />
 </template>
 
@@ -59,6 +59,13 @@ export default {
     },
     handleDelete: function(index) {
       this.items.splice(index, 1)
+      this.saveItems()
+    },
+    handleUpdate: function(data) {
+      const newData = data.dataSet
+      const i = data.index
+      this.items[i].percent = newData.percent
+      this.items[i].memo = newData.memo
       this.saveItems()
     },
     saveItems() {

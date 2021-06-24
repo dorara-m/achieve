@@ -1,16 +1,14 @@
 <template>
   <li>
     <div class="log_date">{{ formatedDate(date) }}</div>
-    <div class="log_percent">{{ percent }}%</div>
-    <input type="text" ref="log_percent_edit" v-if="isEdit">
-    <div class="log_memo">{{ memo }}</div>
-    <input type="text" ref="log_memo_edit" v-if="isEdit">
+    <div class="log_percent"><span :contentEditable="isEdit" ref="percent">{{ percent }}</span>%</div>
+    <div class="log_memo" :contentEditable="isEdit" ref="memo">{{ memo }}</div>
 
-    <div v-if="!isEdit">
+    <div class="log_btnArea" v-if="!isEdit">
       <div class="log_btn" @click="isEdit=true">編集</div>
       <div class="log_btn log_btn_delete" @click="deleteItem(date)">削除</div>
     </div>
-    <div v-if="isEdit">
+    <div class="log_btnArea" v-if="isEdit">
       <div class="log_btn" @click="editItem(date)">保存</div>
       <div class="log_btn" @click="isEdit=false">キャンセル</div>
     </div>
@@ -39,8 +37,11 @@ export default {
     },
 
     editItem: function(date) {
-      alert(`${date}のデータを上書き保存します。`)
       this.isEdit = false
+      this.$emit('update', {
+        percent: this.$refs.percent.innerHTML,
+        memo: this.$refs.memo.innerHTML
+      })
     },
 
     deleteItem: function(date) {
@@ -66,9 +67,17 @@ li {
 .log_percent {
   flex-basis: 10%;
 }
+.log_percent span[contentEditable="true"] {
+  border: 1px solid #999;
+  padding: 2px 5px;
+}
 .log_memo {
   flex: 1;
   padding-right: 50px;
+}
+.log_memo[contentEditable="true"] {
+  border: 1px solid #999;
+  padding: 2px 5px;
 }
 .log_btn {
   background-color: #444;
@@ -77,8 +86,12 @@ li {
   padding: 5px 7px;
   border-radius: 20px;
   cursor: pointer;
+  margin: 3px;
+}
+.log_btnArea {
+  display: flex;
 }
 .log_btn_delete {
-  background-color: crimson;
+  background-color: darkred;
 }
 </style>

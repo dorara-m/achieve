@@ -6,6 +6,7 @@
       :date="item.date"
       :percent="item.percent"
       :memo="item.memo"
+      @update="dataUpdate($event, index)"
       @delete="dataDelete(index)"
     />
   </ul>
@@ -24,6 +25,12 @@ export default {
   methods: {
     dataDelete: function(index) {
       this.$emit('delete', index)
+    },
+    dataUpdate: function(dataSet, index) {
+      this.$emit('update', {
+        dataSet: dataSet,
+        index: index
+      })
     }
   }
 }
