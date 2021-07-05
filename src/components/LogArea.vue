@@ -1,5 +1,11 @@
 <template>
-  <h2>ログ一覧</h2>
+  <h2>その月の値</h2>
+  <div class="filter">
+    <select name="" id="">
+      <option value="5月">5月</option>
+      <option value="6月">6月</option>
+    </select>
+  </div>
   <ul>
     <LogItem v-for="(item,index) in val"
       :key="index"
