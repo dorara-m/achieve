@@ -27,7 +27,7 @@ export default {
       const thePercent = this.$refs.percent
       const theMemo = this.$refs.memo
       
-      // %が空の場合処理中断 - 日付はデフォルトで設定されている。
+      // %が空の場合処理中断 - 日付はデフォルトで設定されるように@todo
       if (!thePercent.value.length) {
         alert('達成率の入力がありません。')
         return

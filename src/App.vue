@@ -1,6 +1,7 @@
 <template>
   <h1>あちーぶ on Vite</h1>
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
+  <button @click="sample">サンプル</button>
   <InputArea v-on:add="handleAdd" />
   <LogArea :val="items" @delete="handleDelete" @update="handleUpdate" />
   <AverageArea :val="items" />
@@ -21,24 +22,102 @@ export default {
   },
   data() {
     return {
-      items: []
+      items: {
+        "2020": {
+          "07": {
+            "01": {
+              "percent": 100,
+              "memo": "あああああ"
+            },
+            "02": {
+              "percent": 90,
+              "memo": "あああああ"
+            }
+          }
+        },
+        "2021": {
+          "08": {
+            "02": {
+              "percent": 100,
+              "memo": "あああああ"
+            }
+          }
+        }
+      }
     }
   },
   mounted() {
-    if (localStorage.getItem('datalist')) {
-      this.items = JSON.parse(localStorage.getItem('datalist'))
-    }
+    // if (localStorage.getItem('datalist')) {
+    //   this.items = JSON.parse(localStorage.getItem('datalist'))
+    // }
   },
   methods: {
-    handleAdd: function(dataSet) {
-      // datasetのdateと、itemsに既にあるdateを1つ1つ比較、同値のものあればその配列indexを保持しておいて、そこにdatasetをまるっと上書き
-      for (let i=0; i<this.items.length; i++) {
-        if (dataSet.date == this.items[i].date) {
-          this.items[i] = dataSet
-          this.saveItems()
-          return
+    sample: function() {
+      const obj = {
+        "2020": {
+          "07": {
+            "01": {
+              "percent": 100,
+              "memo": "あああああ"
+            },
+            "02": {
+              "percent": 90,
+              "memo": "あああああ"
+            }
+          }
+        },
+        "2021": {
+          "08": {
+            "02": {
+              "percent": 100,
+              "memo": "あああああ"
+            }
+          }
         }
       }
+      console.log(obj['2021']['08'])
+    },
+    handleAdd: function(dataSet) {
+      
+      const dayArray = dataSet.date.split('-');
+      const year = dayArray[0]
+      const month = dayArray[1]
+      const day = dayArray[2]
+
+      // ここでまず年が一致するデータを探す
+      const yearIndex = Object.keys(this.items).indexOf(year)
+      if (yearIndex !== -1) {
+        // あった場合、さらに月があるか検索
+        const monthIndex = Object.keys(this.items[year]).indexOf(month)
+        if (monthIndex !== -1) {
+          // 月があった場合
+          const dayIndex = Object.keys(this.items[year][month]).indexOf(day)
+          if (dayIndex !== -1) {
+            // 日があった場合
+            console.log(day+'あったよ')
+          } else {
+            console.log(day+'なかったよ')
+          }
+        } else {
+          // 月をつくる
+          console.log(month+'なかったよ')
+        }
+      } else {
+        // 当てはまる年がなかったら年の枠を作る
+        console.log(year+'なかったよ')
+      }
+      return
+
+
+
+      // datasetのdateと、itemsに既にあるdateを1つ1つ比較、同値のものあればその配列indexを保持しておいて、そこにdatasetをまるっと上書き
+      // for (let i=0; i<this.items.length; i++) {
+      //   if (dataSet.date == this.items[i].date) {
+      //     this.items[i] = dataSet
+      //     this.saveItems()
+      //     return
+      //   }
+      // }
       
       // 追加する前の状態で最新の日付をとっておく
       const latestDate = this.items[0].date
