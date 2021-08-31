@@ -6,16 +6,19 @@
       <option value="6月">6月</option>
     </select>
   </div>
-  <ul>
-    <LogItem v-for="(item,index) in val"
-      :key="index"
-      :date="item.date"
-      :percent="item.percent"
-      :memo="item.memo"
-      @update="dataUpdate($event, index)"
-      @delete="dataDelete(index)"
-    />
-  </ul>
+  <section v-for="(year,index) in items" :key="index">
+    <h3>{{year.key}}</h3>
+    <ul>
+      <LogItem v-for="(month,index) in year.item"
+        :key="index"
+        :date="item.date"
+        :percent="item.percent"
+        :memo="item.memo"
+        @update="dataUpdate($event, index)"
+        @delete="dataDelete(index)"
+      />
+    </ul>
+  </section>
 </template>
 
 <script>
@@ -23,7 +26,7 @@ import LogItem from './LogItem.vue'
 
 export default {
   name: 'LogArea',
-  props: ['val'],
+  props: ['items'],
   emits: ['delete'],
   components: {
     LogItem
