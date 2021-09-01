@@ -2,7 +2,11 @@
   <li>
     <div class="log_date">{{ formatedDate(date) }}</div>
     <div class="log_percent"><span :contentEditable="isEdit" ref="percent">{{ percent }}</span>%</div>
-    <div class="log_memo" :contentEditable="isEdit" ref="memo">{{ memo }}</div>
+    <div class="log_memo">
+      <div class="log_memo_item" :contentEditable="isEdit" ref="memo">{{ memo }}</div>
+      <div class="log_memo_item" :contentEditable="isEdit" ref="memo1">{{ memo1 }}</div>
+      <div class="log_memo_item" :contentEditable="isEdit" ref="memo2">{{ memo2 }}</div>
+    </div>
 
     <div class="log_btnArea" v-if="!isEdit">
       <div class="log_btn" @click="isEdit=true">編集</div>
@@ -19,7 +23,7 @@
 import dayjs from 'dayjs'
 export default {
   name: 'LogItem',
-  props: ['date', 'percent', 'memo'],
+  props: ['date', 'percent', 'memo', 'memo1', 'memo2'],
   emits: ['delete'],
   data() {
     return {
@@ -40,7 +44,9 @@ export default {
       this.isEdit = false
       this.$emit('update', {
         percent: this.$refs.percent.innerHTML,
-        memo: this.$refs.memo.innerHTML
+        memo: this.$refs.memo.innerHTML,
+        memo1: this.$refs.memo1.innerHTML,
+        memo2: this.$refs.memo2.innerHTML
       })
     },
 
@@ -74,8 +80,14 @@ li {
 .log_memo {
   flex: 1;
   padding-right: 50px;
+  display: flex;
+  align-items: flex-start;
 }
-.log_memo[contentEditable="true"] {
+.log_memo_item {
+  flex-basis: 33.3%;
+  padding: 0 10px;
+}
+.log_memo_item[contentEditable="true"] {
   border: 1px solid #999;
   padding: 2px 5px;
 }

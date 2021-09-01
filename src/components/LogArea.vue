@@ -1,17 +1,19 @@
 <template>
-  <h2>その月の値</h2>
+  <!-- <h2>その月の値</h2>
   <div class="filter">
     <select name="" id="">
       <option value="5月">5月</option>
       <option value="6月">6月</option>
     </select>
-  </div>
-  <ul>
+  </div> -->
+  <ul class="logItems">
     <LogItem v-for="(item,index) in val"
       :key="index"
       :date="item.date"
       :percent="item.percent"
       :memo="item.memo"
+      :memo1="item.memo1"
+      :memo2="item.memo2"
       @update="dataUpdate($event, index)"
       @delete="dataDelete(index)"
     />
@@ -41,3 +43,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .logItems {
+    margin-top: 60px;
+  }
+</style>
