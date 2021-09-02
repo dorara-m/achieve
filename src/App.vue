@@ -124,6 +124,8 @@ export default {
       const i = data.index
       this.items[i].percent = newData.percent
       this.items[i].memo = newData.memo
+      this.items[i].memo1 = newData.memo1
+      this.items[i].memo2 = newData.memo2
       this.saveItems()
     },
     saveItems() {
