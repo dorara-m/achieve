@@ -1,10 +1,10 @@
 <template>
   <h1>あちーぶ on Vite</h1>
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
-  <button @click="sample">サンプル</button>
+  <!-- <button @click="sample">サンプル</button> -->
   <InputArea v-on:add="handleAdd" />
   <LogArea :val="items" @delete="handleDelete" @update="handleUpdate" />
-  <AverageArea :val="items" />
+  <!-- <AverageArea :val="items" /> -->
 </template>
 
 <script>
@@ -31,31 +31,9 @@ export default {
     }
   },
   methods: {
-    sample: function() {
-      const obj = {
-        "2020": {
-          "07": {
-            "01": {
-              "percent": 100,
-              "memo": "あああああ"
-            },
-            "02": {
-              "percent": 90,
-              "memo": "あああああ"
-            }
-          }
-        },
-        "2021": {
-          "08": {
-            "02": {
-              "percent": 100,
-              "memo": "あああああ"
-            }
-          }
-        }
-      }
-      console.log(obj['2021']['08'])
-    },
+    // sample: function() {
+    //   console.log('js-sample-test')
+    // },
     handleAdd: function(dataSet) {
       
       // const dayArray = dataSet.date.split('-');
@@ -122,7 +100,9 @@ export default {
     handleUpdate: function(data) {
       const newData = data.dataSet
       const i = data.index
-      this.items[i].percent = newData.percent
+      this.items[i].percentWork = newData.percentWork
+      this.items[i].percentHouse = newData.percentHouse
+      this.items[i].percentHobby = newData.percentHobby
       this.items[i].memo = newData.memo
       this.items[i].memo1 = newData.memo1
       this.items[i].memo2 = newData.memo2

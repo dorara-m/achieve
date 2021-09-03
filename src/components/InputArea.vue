@@ -53,11 +53,11 @@ export default {
         return
       }
 
-      const percent = Math.round((Number(thePercentWork.value) + Number(thePercentHouse.value) + Number(thePercentHobby.value)) / 3)
-
       this.$emit('add', {
         date: theDate.value,
-        percent: percent,
+        percentWork: thePercentWork.value,
+        percentHouse: thePercentHouse.value,
+        percentHobby: thePercentHobby.value,
         memo: theMemo.value,
         memo1: theMemo1.value,
         memo2: theMemo2.value
