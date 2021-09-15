@@ -101,6 +101,9 @@ li {
   font-size: 18px;
   font-weight: bold;
 }
+.log_memo_item_text {
+  white-space: pre-wrap;
+}
 .log_memo_item_text[contentEditable="true"] {
   border: 1px solid #999;
   padding: 2px 5px;
