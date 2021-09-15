@@ -52,6 +52,16 @@ export default {
         alert('日付の指定を忘れてますよ！')
         return
       }
+      // 各%が未入力なら0が入るように設定。
+      if (!thePercentWork.value.length) {
+        thePercentWork.value = 0
+      }
+      if (!thePercentHouse.value.length) {
+        thePercentHouse.value = 0
+      }
+      if (!thePercentHobby.value.length) {
+        thePercentHobby.value = 0
+      }
 
       this.$emit('add', {
         date: theDate.value,
