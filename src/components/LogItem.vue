@@ -1,8 +1,20 @@
 <template>
   <li>
     <div class="log_date">{{ formatedDate(date) }}</div>
-    <div class="log_percent"><span :contentEditable="isEdit" ref="percent">{{ percent }}</span>%</div>
-    <div class="log_memo" :contentEditable="isEdit" ref="memo">{{ memo }}</div>
+    <div class="log_memo">
+      <div class="log_memo_item">
+        <div class="log_memo_item_ttl">仕事: <span class="log_percent" :contentEditable="isEdit" ref="percentWork">{{ percentWork }}</span></div>
+        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memo">{{ memo }}</div>
+      </div>
+      <div class="log_memo_item">
+        <div class="log_memo_item_ttl">家事: <span class="log_percent" :contentEditable="isEdit" ref="percentHouse">{{ percentHouse }}</span></div>
+        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memo1">{{ memo1 }}</div>
+      </div>
+      <div class="log_memo_item">
+        <div class="log_memo_item_ttl">趣味: <span class="log_percent" :contentEditable="isEdit" ref="percentHobby">{{ percentHobby }}</span></div>
+        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memo2">{{ memo2 }}</div>
+      </div>
+    </div>
 
     <div class="log_btnArea" v-if="!isEdit">
       <div class="log_btn" @click="isEdit=true">編集</div>
@@ -19,7 +31,7 @@
 import dayjs from 'dayjs'
 export default {
   name: 'LogItem',
-  props: ['date', 'percent', 'memo'],
+  props: ['date', 'percentWork', 'percentHouse', 'percentHobby', 'memo', 'memo1', 'memo2'],
   emits: ['delete'],
   data() {
     return {
@@ -39,8 +51,12 @@ export default {
     editItem: function(date) {
       this.isEdit = false
       this.$emit('update', {
-        percent: this.$refs.percent.innerHTML,
-        memo: this.$refs.memo.innerHTML
+        percentWork: this.$refs.percentWork.innerHTML,
+        percentHouse: this.$refs.percentHouse.innerHTML,
+        percentHobby: this.$refs.percentHobby.innerHTML,
+        memo: this.$refs.memo.innerHTML,
+        memo1: this.$refs.memo1.innerHTML,
+        memo2: this.$refs.memo2.innerHTML
       })
     },
 
@@ -62,20 +78,33 @@ li {
   align-items: flex-start;
 }
 .log_date {
-  flex-basis: 20%;
+  flex-basis: 100px;
+  font-size: 18px;
 }
 .log_percent {
-  flex-basis: 10%;
+  display: inline-block;
+  color: slateblue;
 }
-.log_percent span[contentEditable="true"] {
+.log_percent[contentEditable="true"] {
   border: 1px solid #999;
   padding: 2px 5px;
 }
 .log_memo {
   flex: 1;
-  padding-right: 50px;
+  padding-right: 30px;
 }
-.log_memo[contentEditable="true"] {
+
+.log_memo_item + .log_memo_item {
+  margin-top: 20px;
+}
+.log_memo_item_ttl {
+  font-size: 18px;
+  font-weight: bold;
+}
+.log_memo_item_text {
+  white-space: pre-wrap;
+}
+.log_memo_item_text[contentEditable="true"] {
   border: 1px solid #999;
   padding: 2px 5px;
 }
