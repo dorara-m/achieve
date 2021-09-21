@@ -1,7 +1,7 @@
 <template>
   <h1>あちーぶ on Vite</h1>
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
-  <!-- <button @click="sample">サンプル</button> -->
+  <button @click="sample">サンプル</button>
   <InputArea v-on:add="handleAdd" />
   <LogArea :val="items" @delete="handleDelete" @update="handleUpdate" />
   <!-- <AverageArea :val="items" /> -->
@@ -22,18 +22,99 @@ export default {
   },
   data() {
     return {
-      items: []
+      items: {
+        "2020": {
+          "08": {
+            "01": {
+              "work": {
+                "percent": 20,
+                "memo": "20しかできなかったよ。"
+              },
+              "house": {
+                "percent": 100,
+                "memo": "えらい"
+              },
+              "hobby": {
+                "percent": 80,
+                "memo": "うわーーーー"
+              }
+            }
+          }
+        },
+        "2021": {
+          "09": {
+            "01": {
+              "work": {
+                "percent": 20,
+                "memo": "20しかできなかったよ。"
+              },
+              "house": {
+                "percent": 100,
+                "memo": "えらい"
+              },
+              "hobby": {
+                "percent": 80,
+                "memo": "うわーーーー"
+              }
+            },
+            "02": {
+              "work": {
+                "percent": 20,
+                "memo": "20しかできなかったよ。"
+              },
+              "house": {
+                "percent": 100,
+                "memo": "えらい"
+              },
+              "hobby": {
+                "percent": 80,
+                "memo": "うわーーーー"
+              }
+            }
+          },
+          "10": {
+            "01": {
+              "work": {
+                "percent": 20,
+                "memo": "20しかできなかったよ。"
+              },
+              "house": {
+                "percent": 100,
+                "memo": "えらい"
+              },
+              "hobby": {
+                "percent": 80,
+                "memo": "うわーーーー"
+              }
+            },
+            "02": {
+              "work": {
+                "percent": 20,
+                "memo": "20しかできなかったよ。"
+              },
+              "house": {
+                "percent": 100,
+                "memo": "えらい"
+              },
+              "hobby": {
+                "percent": 80,
+                "memo": "うわーーーー"
+              }
+            }
+          }
+        }
+      }
     }
   },
   mounted() {
-    if (localStorage.getItem('datalist')) {
-      this.items = JSON.parse(localStorage.getItem('datalist'))
-    }
+    // if (localStorage.getItem('datalist')) {
+    //   this.items = JSON.parse(localStorage.getItem('datalist'))
+    // }
   },
   methods: {
-    // sample: function() {
-    //   console.log('js-sample-test')
-    // },
+    sample: function() {
+      console.log('sample run')
+    },
     handleAdd: function(dataSet) {
       
       // const dayArray = dataSet.date.split('-');

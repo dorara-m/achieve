@@ -6,22 +6,35 @@
       <option value="6月">6月</option>
     </select>
   </div> -->
-  <section v-for="(year,index) in items" :key="index">
-    <h3>{{year.key}}</h3>
-    <ul>
+  <h2>ログエリア</h2>
+  <section v-for="(months,year) in val" :key="year">
+    <h3>{{ year }}年</h3>
+    <section v-for="(days, month) in months" :key="month">
+      <h4>{{ month }}月</h4>
+      <ul>
+        <li v-for="(item, day) in days" :key="day">
+          {{ day }}日: {{ item }}
+        </li>
+      </ul>
+    <!-- <ul>
       <LogItem v-for="(month,index) in year.item"
         :key="index"
         :date="item.date"
-        :percent="item.percent"
+        :percentWork="item.percentWork"
+        :percentHouse="item.percentHouse"
+        :percentHobby="item.percentHobby"
         :memo="item.memo"
+        :memo1="item.memo1"
+        :memo2="item.memo2"
         @update="dataUpdate($event, index)"
         @delete="dataDelete(index)"
       />
-    </ul>
+    </ul> -->
+    </section>
   </section>
 
-  <p>旧UI↓</p>
-  <ul class="logItems">
+  <!-- <p>旧UI↓</p> -->
+  <!-- <ul class="logItems">
     <LogItem v-for="(item,index) in val"
       :key="index"
       :date="item.date"
@@ -34,7 +47,7 @@
       @update="dataUpdate($event, index)"
       @delete="dataDelete(index)"
     />
-  </ul>
+  </ul> -->
 </template>
 
 <script>
@@ -42,7 +55,9 @@ import LogItem from './LogItem.vue'
 
 export default {
   name: 'LogArea',
-  props: ['items'],
+  props: [
+    'val'
+  ],
   emits: ['delete'],
   components: {
     LogItem
