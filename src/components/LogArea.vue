@@ -12,23 +12,20 @@
     <section v-for="(days, month) in months" :key="month">
       <h4>{{ month }}月</h4>
       <ul>
-        <li v-for="(item, day) in days" :key="day">
-          {{ day }}日: {{ item }}
-        </li>
+        <LogItem v-for="(item,day) in days"
+          :key="day"
+          :date="year+month+day"
+          :percentWork="item.work.percent"
+          :memo="item.work.memo"
+          :percentHouse="item.house.percent"
+          :memo1="item.house.percent"
+          :percentHobby="item.hobby.percent"
+          :memo2="item.hobby.percent"
+          @update="dataUpdate($event, index)"
+          @delete="dataDelete(index)"
+        />
       </ul>
     <!-- <ul>
-      <LogItem v-for="(month,index) in year.item"
-        :key="index"
-        :date="item.date"
-        :percentWork="item.percentWork"
-        :percentHouse="item.percentHouse"
-        :percentHobby="item.percentHobby"
-        :memo="item.memo"
-        :memo1="item.memo1"
-        :memo2="item.memo2"
-        @update="dataUpdate($event, index)"
-        @delete="dataDelete(index)"
-      />
     </ul> -->
     </section>
   </section>
