@@ -65,12 +65,18 @@ export default {
 
       this.$emit('add', {
         date: theDate.value,
-        percentWork: thePercentWork.value,
-        percentHouse: thePercentHouse.value,
-        percentHobby: thePercentHobby.value,
-        memo: theMemo.value,
-        memo1: theMemo1.value,
-        memo2: theMemo2.value
+        work: {
+          percent: thePercentWork.value,
+          memo: theMemo.value
+        },
+        house: {
+          percent: thePercentHouse.value,
+          memo: theMemo1.value
+        },
+        hobby: {
+          percent: thePercentHobby.value,
+          memo: theMemo2.value
+        }
       })
       theDate.value = ''
       thePercentWork.value = ''
