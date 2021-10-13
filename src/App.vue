@@ -8,10 +8,13 @@
 </template>
 
 <script>
+// 同階層にfirebaseのキーを記述したfirebaseConfigを置いてください。
+import firebaseConfig from './firebaseConfig'
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, set, onValue } from "firebase/database";
 import InputArea from './components/InputArea.vue'
 import LogArea from './components/LogArea.vue'
 import AverageArea from './components/AverageArea.vue'
-import dayjs from 'dayjs'
 
 export default {
   name: 'App',
@@ -22,6 +25,8 @@ export default {
   },
   data() {
     return {
+      database: null,
+      itemsRef: null,
       items: {
         "2020": {
           "08": {
@@ -106,10 +111,29 @@ export default {
       }
     }
   },
-  mounted() {
-    // if (localStorage.getItem('datalist')) {
-    //   this.items = JSON.parse(localStorage.getItem('datalist'))
-    // }
+  created() {
+    // データベースを初期化
+    // var firebaseConfig = {
+    //   apiKey: "AIzaSyCTpJLwvmmv0Kc1sqDiPIAMLFEvk8hVYVM",
+    //   authDomain: "achieveapp-7ef39.firebaseapp.com",
+    //   databaseURL: "https://achieveapp-7ef39-default-rtdb.firebaseio.com",
+    //   projectId: "achieveapp-7ef39",
+    //   storageBucket: "achieveapp-7ef39.appspot.com",
+    //   messagingSenderId: "947001306879",
+    //   appId: "1:947001306879:web:795ee9a57cf0321ab3a6ca",
+    //   measurementId: "G-X4HFNKCDZR"
+    // };
+    const app = initializeApp(firebaseConfig)
+    const db = getDatabase(app)
+    // 初期値をdataのrefに登録
+    const itemsRef = ref(db, '/')
+
+    // refが更新されたらitemsも更新。事実上firebaseが更新されたら動く関数
+    onValue(itemsRef, (snapshot) => {
+      this.items = snapshot.val();
+      console.log('items updated')
+    });
+
   },
   methods: {
     sample: function() {
