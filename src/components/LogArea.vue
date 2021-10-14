@@ -16,35 +16,17 @@
           :key="day"
           :date="year+month+day"
           :percentWork="item.work.percent"
-          :memo="item.work.memo"
+          :memoWork="item.work.memo"
           :percentHouse="item.house.percent"
-          :memo1="item.house.percent"
+          :memoHouse="item.house.memo"
           :percentHobby="item.hobby.percent"
-          :memo2="item.hobby.percent"
+          :memoHobby="item.hobby.memo"
           @update="dataUpdate($event, index)"
           @delete="dataDelete(index)"
         />
       </ul>
-    <!-- <ul>
-    </ul> -->
     </section>
   </section>
-
-  <!-- <p>旧UI↓</p> -->
-  <!-- <ul class="logItems">
-    <LogItem v-for="(item,index) in val"
-      :key="index"
-      :date="item.date"
-      :percentWork="item.percentWork"
-      :percentHouse="item.percentHouse"
-      :percentHobby="item.percentHobby"
-      :memo="item.memo"
-      :memo1="item.memo1"
-      :memo2="item.memo2"
-      @update="dataUpdate($event, index)"
-      @delete="dataDelete(index)"
-    />
-  </ul> -->
 </template>
 
 <script>

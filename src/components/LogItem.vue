@@ -4,15 +4,15 @@
     <div class="log_memo">
       <div class="log_memo_item">
         <div class="log_memo_item_ttl">仕事: <span class="log_percent" :contentEditable="isEdit" ref="percentWork">{{ percentWork }}</span></div>
-        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memo">{{ memo }}</div>
+        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memoWork">{{ memoWork }}</div>
       </div>
       <div class="log_memo_item">
         <div class="log_memo_item_ttl">家事: <span class="log_percent" :contentEditable="isEdit" ref="percentHouse">{{ percentHouse }}</span></div>
-        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memo1">{{ memo1 }}</div>
+        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memoHouse">{{ memoHouse }}</div>
       </div>
       <div class="log_memo_item">
         <div class="log_memo_item_ttl">趣味: <span class="log_percent" :contentEditable="isEdit" ref="percentHobby">{{ percentHobby }}</span></div>
-        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memo2">{{ memo2 }}</div>
+        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memoHobby">{{ memoHobby }}</div>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
 import dayjs from 'dayjs'
 export default {
   name: 'LogItem',
-  props: ['date', 'percentWork', 'percentHouse', 'percentHobby', 'memo', 'memo1', 'memo2'],
+  props: ['date', 'percentWork', 'memoWork','percentHouse', 'memoHouse', 'percentHobby', 'memoHobby'],
   emits: ['delete'],
   data() {
     return {
@@ -52,11 +52,11 @@ export default {
       this.isEdit = false
       this.$emit('update', {
         percentWork: this.$refs.percentWork.innerHTML,
+        memoWork: this.$refs.memoWork.innerHTML,
         percentHouse: this.$refs.percentHouse.innerHTML,
+        memoHouse: this.$refs.memoHouse.innerHTML,
         percentHobby: this.$refs.percentHobby.innerHTML,
-        memo: this.$refs.memo.innerHTML,
-        memo1: this.$refs.memo1.innerHTML,
-        memo2: this.$refs.memo2.innerHTML
+        memoHobby: this.$refs.memoHobby.innerHTML
       })
     },
 

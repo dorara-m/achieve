@@ -27,105 +27,14 @@ export default {
     return {
       database: null,
       itemsRef: null,
-      items: {
-        "2020": {
-          "08": {
-            "01": {
-              "work": {
-                "percent": 20,
-                "memo": "20しかできなかったよ。"
-              },
-              "house": {
-                "percent": 100,
-                "memo": "えらい"
-              },
-              "hobby": {
-                "percent": 80,
-                "memo": "うわーーーー"
-              }
-            }
-          }
-        },
-        "2021": {
-          "09": {
-            "01": {
-              "work": {
-                "percent": 20,
-                "memo": "20しかできなかったよ。"
-              },
-              "house": {
-                "percent": 100,
-                "memo": "えらい"
-              },
-              "hobby": {
-                "percent": 80,
-                "memo": "うわーーーー"
-              }
-            },
-            "02": {
-              "work": {
-                "percent": 20,
-                "memo": "20しかできなかったよ。"
-              },
-              "house": {
-                "percent": 100,
-                "memo": "えらい"
-              },
-              "hobby": {
-                "percent": 80,
-                "memo": "うわーーーー"
-              }
-            }
-          },
-          "10": {
-            "01": {
-              "work": {
-                "percent": 20,
-                "memo": "20しかできなかったよ。"
-              },
-              "house": {
-                "percent": 100,
-                "memo": "えらい"
-              },
-              "hobby": {
-                "percent": 80,
-                "memo": "うわーーーー"
-              }
-            },
-            "02": {
-              "work": {
-                "percent": 20,
-                "memo": "20しかできなかったよ。"
-              },
-              "house": {
-                "percent": 100,
-                "memo": "えらい"
-              },
-              "hobby": {
-                "percent": 80,
-                "memo": "うわーーーー"
-              }
-            }
-          }
-        }
-      }
+      items: {}
     }
   },
   created() {
     // データベースを初期化
-    // var firebaseConfig = {
-    //   apiKey: "AIzaSyCTpJLwvmmv0Kc1sqDiPIAMLFEvk8hVYVM",
-    //   authDomain: "achieveapp-7ef39.firebaseapp.com",
-    //   databaseURL: "https://achieveapp-7ef39-default-rtdb.firebaseio.com",
-    //   projectId: "achieveapp-7ef39",
-    //   storageBucket: "achieveapp-7ef39.appspot.com",
-    //   messagingSenderId: "947001306879",
-    //   appId: "1:947001306879:web:795ee9a57cf0321ab3a6ca",
-    //   measurementId: "G-X4HFNKCDZR"
-    // };
     const app = initializeApp(firebaseConfig)
     const db = getDatabase(app)
-    // 初期値をdataのrefに登録
+    // 初期値をrefに登録
     const itemsRef = ref(db, '/')
 
     // refが更新されたらitemsも更新。事実上firebaseが更新されたら動く関数
@@ -139,6 +48,7 @@ export default {
     sample: function() {
       console.log('sample run')
     },
+    // データ追加の処理
     handleAdd: function(dataSet) {
       
       // 日付を分解して、重複するデータがないか検索
@@ -146,6 +56,12 @@ export default {
       const year = dayArray[0]
       const month = dayArray[1]
       const day = dayArray[2]
+
+      // 日付は分解したら保存する必要はないので、dataSetから日付を取り除いておく
+      // 複製
+      const formattedDataSet = Object.assign(dataSet);
+      // 複製したものからdateを削除
+      delete formattedDataSet.date
 
       // ここでまず年が一致するデータを探す
       const yearIndex = Object.keys(this.items).indexOf(year)
@@ -157,28 +73,26 @@ export default {
           const dayIndex = Object.keys(this.items[year][month]).indexOf(day)
           if (dayIndex !== -1) {
             // 日があった場合
-            console.log(day+'あったよ')
-          } else {
-            this.items[year][month][day] = dataSet
-            console.log(this.items[year][month][day])
+            console.log(day+'日はあったよ')
           }
+          // 結局どっちでもデータ入れる処理は同じ
+          this.items[year][month][day] = formattedDataSet
         } else {
-          console.log(month+'なかったよ')
+          console.log(month+'月がなかったよ')
           // 月をつくる（空オブジェクトをわたす
           this.items[year][month] = {}
           // 実際のデータを挿入
-          this.items[year][month][day] = dataSet
+          this.items[year][month][day] = formattedDataSet
         }
       } else {
         // 当てはまる年がなかったら年の枠を作る
-        console.log(year+'なかったよ')
+        console.log(year+'年がなかったよ')
         // 年と月をつくる（空オブジェクトをわたす
         this.items[year] = {}
         this.items[year][month] = {}
         // 実際のデータを挿入
-        this.items[year][month][day] = dataSet
+        this.items[year][month][day] = formattedDataSet
       }
-      return
 
       this.saveItems()
     },
@@ -198,13 +112,13 @@ export default {
       this.saveItems()
     },
     saveItems() {
-      const parsed = JSON.stringify(this.items)
-      localStorage.setItem('datalist', parsed);
+      const db = getDatabase()
+      set(ref(db, '/'), this.items)
     }
   },
 
-  // setupでうまく動作せず、いつか調査↓
 
+  // setupでうまく動作せず、vue3での書き方。いつか調査↓
   // setup() {
   //   const items = ref([])
   //   const handleAdd = function(dateSet) {
