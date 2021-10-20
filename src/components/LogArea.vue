@@ -22,7 +22,7 @@
           :percentHobby="item.hobby.percent"
           :memoHobby="item.hobby.memo"
           @update="dataUpdate($event, index)"
-          @delete="dataDelete(index)"
+          @delete="dataDelete(item.date)"
         />
       </ul>
     </section>
@@ -42,8 +42,8 @@ export default {
     LogItem
   },
   methods: {
-    dataDelete: function(index) {
-      this.$emit('delete', index)
+    dataDelete: function(date) {
+      this.$emit('delete', date)
     },
     dataUpdate: function(dataSet, index) {
       this.$emit('update', {

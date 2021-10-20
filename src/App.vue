@@ -59,9 +59,9 @@ export default {
 
       // 日付は分解したら保存する必要はないので、dataSetから日付を取り除いておく
       // 複製
-      const formattedDataSet = Object.assign(dataSet);
+      // const formattedDataSet = Object.assign(dataSet);
       // 複製したものからdateを削除
-      delete formattedDataSet.date
+      // delete formattedDataSet.date
 
       // ここでまず年が一致するデータを探す
       const yearIndex = Object.keys(this.items).indexOf(year)
@@ -76,13 +76,13 @@ export default {
             console.log(day+'日はあったよ')
           }
           // 結局どっちでもデータ入れる処理は同じ
-          this.items[year][month][day] = formattedDataSet
+          this.items[year][month][day] = dataSet
         } else {
           console.log(month+'月がなかったよ')
           // 月をつくる（空オブジェクトをわたす
           this.items[year][month] = {}
           // 実際のデータを挿入
-          this.items[year][month][day] = formattedDataSet
+          this.items[year][month][day] = dataSet
         }
       } else {
         // 当てはまる年がなかったら年の枠を作る
@@ -91,13 +91,22 @@ export default {
         this.items[year] = {}
         this.items[year][month] = {}
         // 実際のデータを挿入
-        this.items[year][month][day] = formattedDataSet
+        this.items[year][month][day] = dataSet
       }
 
       this.saveItems()
     },
-    handleDelete: function(index) {
-      this.items.splice(index, 1)
+    handleDelete: function(date) {
+      // 対応する日付の箇所を特定。
+
+      // 日付を分解
+      const dayArray = date.split('-');
+      const year = dayArray[0]
+      const month = dayArray[1]
+      const day = dayArray[2]
+
+      delete this.items[year][month][day]
+
       this.saveItems()
     },
     handleUpdate: function(data) {
