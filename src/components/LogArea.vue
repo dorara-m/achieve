@@ -14,14 +14,14 @@
       <ul>
         <LogItem v-for="(item,day) in days"
           :key="day"
-          :date="year+month+day"
+          :date="item.date"
           :percentWork="item.work.percent"
           :memoWork="item.work.memo"
           :percentHouse="item.house.percent"
           :memoHouse="item.house.memo"
           :percentHobby="item.hobby.percent"
           :memoHobby="item.hobby.memo"
-          @update="dataUpdate($event, index)"
+          @update="dataUpdate"
           @delete="dataDelete(item.date)"
         />
       </ul>
@@ -45,11 +45,8 @@ export default {
     dataDelete: function(date) {
       this.$emit('delete', date)
     },
-    dataUpdate: function(dataSet, index) {
-      this.$emit('update', {
-        dataSet: dataSet,
-        index: index
-      })
+    dataUpdate: function(dataSet) {
+      this.$emit('update', dataSet)
     }
   }
 }

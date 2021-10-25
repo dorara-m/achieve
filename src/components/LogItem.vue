@@ -51,12 +51,19 @@ export default {
     editItem: function(date) {
       this.isEdit = false
       this.$emit('update', {
-        percentWork: this.$refs.percentWork.innerHTML,
-        memoWork: this.$refs.memoWork.innerHTML,
-        percentHouse: this.$refs.percentHouse.innerHTML,
-        memoHouse: this.$refs.memoHouse.innerHTML,
-        percentHobby: this.$refs.percentHobby.innerHTML,
-        memoHobby: this.$refs.memoHobby.innerHTML
+        date: date,
+        work: {
+          percent: this.$refs.percentWork.innerHTML,
+          memo: this.$refs.memoWork.innerHTML
+        },
+        house: {
+          percent: this.$refs.percentHouse.innerHTML,
+          memo: this.$refs.memoHouse.innerHTML
+        },
+        hobby: {
+          percent: this.$refs.percentHobby.innerHTML,
+          memo: this.$refs.memoHobby.innerHTML
+        }
       })
     },
 

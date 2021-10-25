@@ -97,27 +97,25 @@ export default {
       this.saveItems()
     },
     handleDelete: function(date) {
-      // 対応する日付の箇所を特定。
-
       // 日付を分解
       const dayArray = date.split('-');
       const year = dayArray[0]
       const month = dayArray[1]
       const day = dayArray[2]
-
+      // オブジェクトの削除
       delete this.items[year][month][day]
 
       this.saveItems()
     },
-    handleUpdate: function(data) {
-      const newData = data.dataSet
-      const i = data.index
-      this.items[i].percentWork = newData.percentWork
-      this.items[i].percentHouse = newData.percentHouse
-      this.items[i].percentHobby = newData.percentHobby
-      this.items[i].memo = newData.memo
-      this.items[i].memo1 = newData.memo1
-      this.items[i].memo2 = newData.memo2
+    handleUpdate: function(dataSet) {
+      console.log(dataSet)
+      const dayArray = dataSet.date.split('-');
+      const year = dayArray[0]
+      const month = dayArray[1]
+      const day = dayArray[2]
+
+      this.items[year][month][day] = dataSet
+      
       this.saveItems()
     },
     saveItems() {
