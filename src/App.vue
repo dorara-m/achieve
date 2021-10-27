@@ -1,7 +1,7 @@
 <template>
   <h1>あちーぶ on Vite</h1>
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
-  <button @click="sample">サンプル</button>
+  <!-- <button @click="sample">サンプル</button> -->
   <InputArea v-on:add="handleAdd" />
   <LogArea :val="items" @delete="handleDelete" @update="handleUpdate" />
   <!-- <AverageArea :val="items" /> -->
@@ -39,8 +39,32 @@ export default {
 
     // refが更新されたらitemsも更新。事実上firebaseが更新されたら動く関数
     onValue(itemsRef, (snapshot) => {
-      this.items = snapshot.val();
       console.log('items updated')
+
+      // この時点で並び替わってるので治すしかない。
+      const oldData = snapshot.val()
+      const newData = []
+      const yearArray = Object.keys(oldData)
+      for (let i=0; i<yearArray.length; i++) {
+        // newData[yearArray[i]] = {}
+        const months = oldData[yearArray[i]]
+        const monthArray = Object.keys(months)
+        // ここでsortはさむ。
+        monthArray.sort((a,b) => Number(a) - Number(b))
+        for (let i=0; i<monthArray.length; i++) {
+          // newData[yearArray[i]][monthArray[i]] = {}
+          // console.log(newData)
+          const days = months[monthArray[i]]
+          const dayArray = Object.keys(days)
+          dayArray.sort((a,b) => Number(a) - Number(b))
+          for (let i=0; i<dayArray.length; i++) {
+            // newData[yearArray[i]][monthArray[i][dayArray[i]]] = days[dayArray[i]]
+            console.log(days[dayArray[i]])
+            newData.push(days[dayArray[i]])
+          }
+        }
+      }
+      this.items = newData
     });
 
   },
