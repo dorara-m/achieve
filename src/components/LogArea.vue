@@ -7,24 +7,10 @@
     </select>
   </div> -->
   <h2>ログエリア</h2>
-  <ul>
-    <LogItem v-for="(item,index) in val"
-      :key="index"
-      :date="item.date"
-      :percentWork="item.work.percent"
-      :memoWork="item.work.memo"
-      :percentHouse="item.house.percent"
-      :memoHouse="item.house.memo"
-      :percentHobby="item.hobby.percent"
-      :memoHobby="item.hobby.memo"
-      @update="dataUpdate"
-      @delete="dataDelete(item.date)"
-    />
-  </ul>
-  <!-- <section v-for="(months,year) in val" :key="year">
+  <section v-for="(months,year) in val" :key="year">
     <h3>{{ year }}年</h3>
     <section v-for="(days, month) in months" :key="month">
-      <h4>{{ month }}月</h4>
+      <h4>{{ month.slice(-2) }}月</h4>
       <ul>
         <LogItem v-for="(item,day) in days"
           :key="day"
@@ -40,7 +26,7 @@
         />
       </ul>
     </section>
-  </section> -->
+  </section>
 </template>
 
 <script>

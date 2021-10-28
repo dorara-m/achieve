@@ -2,6 +2,7 @@
   <h1>あちーぶ on Vite</h1>
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
   <!-- <button @click="sample">サンプル</button> -->
+  <!-- <p>{{ items }}</p> -->
   <InputArea v-on:add="handleAdd" />
   <LogArea :val="items" @delete="handleDelete" @update="handleUpdate" />
   <!-- <AverageArea :val="items" /> -->
@@ -40,31 +41,7 @@ export default {
     // refが更新されたらitemsも更新。事実上firebaseが更新されたら動く関数
     onValue(itemsRef, (snapshot) => {
       console.log('items updated')
-
-      // この時点で並び替わってるので治すしかない。
-      const oldData = snapshot.val()
-      const newData = []
-      const yearArray = Object.keys(oldData)
-      for (let i=0; i<yearArray.length; i++) {
-        // newData[yearArray[i]] = {}
-        const months = oldData[yearArray[i]]
-        const monthArray = Object.keys(months)
-        // ここでsortはさむ。
-        monthArray.sort((a,b) => Number(a) - Number(b))
-        for (let i=0; i<monthArray.length; i++) {
-          // newData[yearArray[i]][monthArray[i]] = {}
-          // console.log(newData)
-          const days = months[monthArray[i]]
-          const dayArray = Object.keys(days)
-          dayArray.sort((a,b) => Number(a) - Number(b))
-          for (let i=0; i<dayArray.length; i++) {
-            // newData[yearArray[i]][monthArray[i][dayArray[i]]] = days[dayArray[i]]
-            console.log(days[dayArray[i]])
-            newData.push(days[dayArray[i]])
-          }
-        }
-      }
-      this.items = newData
+      this.items = snapshot.val()
     });
 
   },
@@ -78,8 +55,8 @@ export default {
       // 日付を分解して、重複するデータがないか検索
       const dayArray = dataSet.date.split('-');
       const year = dayArray[0]
-      const month = dayArray[1]
-      const day = dayArray[2]
+      const month = '0' + dayArray[1]
+      const day = '0' + dayArray[2]
 
       // 日付は分解したら保存する必要はないので、dataSetから日付を取り除いておく
       // 複製
@@ -124,8 +101,8 @@ export default {
       // 日付を分解
       const dayArray = date.split('-');
       const year = dayArray[0]
-      const month = dayArray[1]
-      const day = dayArray[2]
+      const month = '0' + dayArray[1]
+      const day = '0' + dayArray[2]
       // オブジェクトの削除
       delete this.items[year][month][day]
 
@@ -135,8 +112,8 @@ export default {
       console.log(dataSet)
       const dayArray = dataSet.date.split('-');
       const year = dayArray[0]
-      const month = dayArray[1]
-      const day = dayArray[2]
+      const month = '0' + dayArray[1]
+      const day = '0' + dayArray[2]
 
       this.items[year][month][day] = dataSet
       

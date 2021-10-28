@@ -85,7 +85,7 @@ li {
   align-items: flex-start;
 }
 .log_date {
-  flex-basis: 100px;
+  flex-basis: 110px;
   font-size: 18px;
 }
 .log_percent {
