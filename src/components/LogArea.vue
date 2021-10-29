@@ -10,7 +10,7 @@
   <section v-for="(months,year) in val" :key="year">
     <h3>{{ year }}年</h3>
     <section v-for="(days, month) in months" :key="month">
-      <h4>{{ month.slice(-2) }}月</h4>
+      <h4>{{ Number(month) }}月</h4>
       <ul>
         <LogItem v-for="(item,day) in days"
           :key="day"
