@@ -2,7 +2,7 @@
   <h1>あちーぶ on Vite</h1>
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
   <!-- <button @click="sample">サンプル</button> -->
-  <!-- <p>{{ items }}</p> -->
+  <p>{{ items }}</p>
   <InputArea v-on:add="handleAdd" />
   <LogArea :val="items" @delete="handleDelete" @update="handleUpdate" />
   <!-- <AverageArea :val="items" /> -->
@@ -42,6 +42,14 @@ export default {
     onValue(itemsRef, (snapshot) => {
       console.log('items updated')
       this.items = snapshot.val()
+      
+      // ここで逆順に並べ替えちゃう??
+      const tmp = snapshot.val()
+      const years = Object.keys(tmp)
+      const sorted = years.reverse()
+      for(let key of sorted) {
+        console.log(`${key} : ${tmp[key]}`)
+      }
     });
 
   },
