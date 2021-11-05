@@ -1,82 +1,22 @@
 {
-  "2020": {
-    "08": {
-      "01": {
-        "work": {
-          "percent": 20,
-          "memo": "20しかできなかったよ。"
-        },
-        "house": {
-          "percent": 100,
-          "memo": "えらい"
-        },
-        "hobby": {
-          "percent": 80,
-          "memo": "うわーーーー"
-        }
-      }
-    }
+  "xxxxxxx": {
+    "date": "2021-01-10",
+    "year": "2021",
+    "month": "01",
+    "day": "10",
+    "percentWork": 20,
+    "percentHouse": 20,
+    "percentHobby": 20,
+    "memo": "ここに1日に振り返りを時系列順にわーーーと書いていくイメージ"
   },
-  "2021": {
-    "09": {
-      "01": {
-        "work": {
-          "percent": 20,
-          "memo": "20しかできなかったよ。"
-        },
-        "house": {
-          "percent": 100,
-          "memo": "えらい"
-        },
-        "hobby": {
-          "percent": 80,
-          "memo": "うわーーーー"
-        }
-      },
-      "02": {
-        "work": {
-          "percent": 20,
-          "memo": "20しかできなかったよ。"
-        },
-        "house": {
-          "percent": 100,
-          "memo": "えらい"
-        },
-        "hobby": {
-          "percent": 80,
-          "memo": "うわーーーー"
-        }
-      }
-    },
-    "10": {
-      "01": {
-        "work": {
-          "percent": 20,
-          "memo": "20しかできなかったよ。"
-        },
-        "house": {
-          "percent": 100,
-          "memo": "えらい"
-        },
-        "hobby": {
-          "percent": 80,
-          "memo": "うわーーーー"
-        }
-      },
-      "02": {
-        "work": {
-          "percent": 20,
-          "memo": "20しかできなかったよ。"
-        },
-        "house": {
-          "percent": 100,
-          "memo": "えらい"
-        },
-        "hobby": {
-          "percent": 80,
-          "memo": "うわーーーー"
-        }
-      }
-    }
+  "yyyyyyy": {
+    "date": "2021-02-23",
+    "year": "2021",
+    "month": "02",
+    "day": "23",
+    "percentWork": 30,
+    "percentHouse": 50,
+    "percentHobby": 60,
+    "memo": "ここに1日に振り返りを時系列順にわーーーと書いていくイメージ"
   }
 }
