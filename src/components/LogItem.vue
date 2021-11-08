@@ -2,18 +2,12 @@
   <li>
     <div class="log_date">{{ formatedDate(date) }}</div>
     <div class="log_memo">
-      <div class="log_memo_item">
-        <div class="log_memo_item_ttl">仕事: <span class="log_percent" :contentEditable="isEdit" ref="percentWork">{{ percentWork }}</span></div>
-        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memoWork">{{ memoWork }}</div>
+      <div class="log_memo_head">
+        <div class="percent">仕事: <span class="log_percent" :contentEditable="isEdit" ref="percentWork">{{ percentWork }}</span></div>
+        <div class="percent">家事: <span class="log_percent" :contentEditable="isEdit" ref="percentHouse">{{ percentHouse }}</span></div>
+        <div class="percent">趣味: <span class="log_percent" :contentEditable="isEdit" ref="percentHobby">{{ percentHobby }}</span></div>
       </div>
-      <div class="log_memo_item">
-        <div class="log_memo_item_ttl">家事: <span class="log_percent" :contentEditable="isEdit" ref="percentHouse">{{ percentHouse }}</span></div>
-        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memoHouse">{{ memoHouse }}</div>
-      </div>
-      <div class="log_memo_item">
-        <div class="log_memo_item_ttl">趣味: <span class="log_percent" :contentEditable="isEdit" ref="percentHobby">{{ percentHobby }}</span></div>
-        <div class="log_memo_item_text" :contentEditable="isEdit" ref="memoHobby">{{ memoHobby }}</div>
-      </div>
+      <div class="log_memo_body" :contentEditable="isEdit" ref="memo">{{ memo }}</div>
     </div>
 
     <div class="log_btnArea" v-if="!isEdit">
@@ -31,7 +25,7 @@
 import dayjs from 'dayjs'
 export default {
   name: 'LogItem',
-  props: ['date', 'percentWork', 'memoWork','percentHouse', 'memoHouse', 'percentHobby', 'memoHobby'],
+  props: ['date', 'percentWork', 'percentHouse', 'percentHobby', 'memo'],
   emits: ['delete'],
   data() {
     return {
@@ -84,11 +78,28 @@ li {
   text-align: left;
   align-items: flex-start;
 }
+li + li {
+  margin-top: 20px;
+}
 .log_date {
   flex-basis: 110px;
   font-size: 18px;
 }
+.log_memo {
+  flex: 1;
+  padding-right: 30px;
+}
+
+.log_memo_head {
+  display: flex;
+}
+.percent {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 20px;
+}
 .log_percent {
+  font-size: 20px;
   display: inline-block;
   color: slateblue;
 }
@@ -96,22 +107,11 @@ li {
   border: 1px solid #999;
   padding: 2px 5px;
 }
-.log_memo {
-  flex: 1;
-  padding-right: 30px;
-}
-
-.log_memo_item + .log_memo_item {
-  margin-top: 20px;
-}
-.log_memo_item_ttl {
-  font-size: 18px;
-  font-weight: bold;
-}
-.log_memo_item_text {
+.log_memo_body {
+  margin-top: 10px;
   white-space: pre-wrap;
 }
-.log_memo_item_text[contentEditable="true"] {
+.log_memo_body[contentEditable="true"] {
   border: 1px solid #999;
   padding: 2px 5px;
 }

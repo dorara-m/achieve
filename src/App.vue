@@ -2,9 +2,9 @@
   <h1>あちーぶ on Vite</h1>
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
   <!-- <button @click="sample">サンプル</button> -->
-  <p>{{ items }}</p>
+  <!-- <p>{{ items }}</p> -->
   <InputArea v-on:add="handleAdd" />
-  <LogArea :val="items" @delete="handleDelete" @update="handleUpdate" />
+  <LogArea :items="items" @delete="handleDelete" @update="handleUpdate" />
   <!-- <AverageArea :val="items" /> -->
 </template>
 
@@ -41,20 +41,36 @@ export default {
     // refが更新されたらitemsも更新。事実上firebaseが更新されたら動く関数
     onValue(itemsRef, (snapshot) => {
       console.log('items updated')
-      this.items = snapshot.val()
-      
-      // ここで逆順に並べ替えちゃう??
-      const tmp = snapshot.val()
-      const years = Object.keys(tmp)
-      const sorted = years.reverse()
-      for(let key of sorted) {
-        console.log(`${key} : ${tmp[key]}`)
-      }
+      // ここでオブジェクトの中身だけ配列に変換してitemsに格納
+      this.items = Object.values(snapshot.val())
     });
 
   },
   methods: {
     sample: function() {
+      const obj = {
+        "xxxxxxx": {
+          "date": "2021-01-10",
+          "year": "2021",
+          "month": "01",
+          "day": "10",
+          "percentWork": 20,
+          "percentHouse": 20,
+          "percentHobby": 20,
+          "memo": "ここに1日に振り返りを時系列順にわーーーと書いていくイメージ"
+        },
+        "yyyyyyy": {
+          "date": "2021-02-23",
+          "year": "2021",
+          "month": "02",
+          "day": "23",
+          "percentWork": 30,
+          "percentHouse": 50,
+          "percentHobby": 60,
+          "memo": "ここに1日に振り返りを時系列順にわーーーと書いていくイメージ"
+        }
+      }
+      console.log(Object.values(obj))
       console.log('sample run')
     },
     // データ追加の処理

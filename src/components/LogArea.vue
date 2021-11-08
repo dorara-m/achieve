@@ -7,26 +7,18 @@
     </select>
   </div> -->
   <h2>ログエリア</h2>
-  <section v-for="(months,year) in val" :key="year">
-    <h3>{{ year }}年</h3>
-    <section v-for="(days, month) in months" :key="month">
-      <h4>{{ Number(month) }}月</h4>
-      <ul>
-        <LogItem v-for="(item,day) in days"
-          :key="day"
-          :date="item.date"
-          :percentWork="item.work.percent"
-          :memoWork="item.work.memo"
-          :percentHouse="item.house.percent"
-          :memoHouse="item.house.memo"
-          :percentHobby="item.hobby.percent"
-          :memoHobby="item.hobby.memo"
-          @update="dataUpdate"
-          @delete="dataDelete(item.date)"
-        />
-      </ul>
-    </section>
-  </section>
+  <ul>
+    <LogItem v-for="(item,i) in items"
+      :key="i"
+      :date="item.date"
+      :percentWork="item.percentWork"
+      :percentHouse="item.percentHouse"
+      :percentHobby="item.percentHobby"
+      :memo="item.memo"
+      @update="dataUpdate"
+      @delete="dataDelete(item.date)"
+    />
+  </ul>
 </template>
 
 <script>
@@ -35,7 +27,7 @@ import LogItem from './LogItem.vue'
 export default {
   name: 'LogArea',
   props: [
-    'val'
+    'items'
   ],
   emits: ['delete'],
   components: {
