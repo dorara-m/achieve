@@ -48,29 +48,6 @@ export default {
   },
   methods: {
     sample: function() {
-      const obj = {
-        "xxxxxxx": {
-          "date": "2021-01-10",
-          "year": "2021",
-          "month": "01",
-          "day": "10",
-          "percentWork": 20,
-          "percentHouse": 20,
-          "percentHobby": 20,
-          "memo": "ここに1日に振り返りを時系列順にわーーーと書いていくイメージ"
-        },
-        "yyyyyyy": {
-          "date": "2021-02-23",
-          "year": "2021",
-          "month": "02",
-          "day": "23",
-          "percentWork": 30,
-          "percentHouse": 50,
-          "percentHobby": 60,
-          "memo": "ここに1日に振り返りを時系列順にわーーーと書いていくイメージ"
-        }
-      }
-      console.log(Object.values(obj))
       console.log('sample run')
     },
     // データ追加の処理
@@ -121,26 +98,17 @@ export default {
 
       this.saveItems()
     },
-    handleDelete: function(date) {
-      // 日付を分解
-      const dayArray = date.split('-');
-      const year = dayArray[0]
-      const month = '0' + dayArray[1]
-      const day = '0' + dayArray[2]
+    handleDelete: function(index) {
       // オブジェクトの削除
-      delete this.items[year][month][day]
-
+      console.log(index)
+      this.items.splice(index, 1)
       this.saveItems()
     },
-    handleUpdate: function(dataSet) {
-      console.log(dataSet)
-      const dayArray = dataSet.date.split('-');
-      const year = dayArray[0]
-      const month = '0' + dayArray[1]
-      const day = '0' + dayArray[2]
-
-      this.items[year][month][day] = dataSet
-      
+    handleUpdate: function(data) {
+      console.log(data.dataSet)
+      // 送られてくる編集後のデータと、元あるデータを結合↓
+      const newObj = { ...this.items[data.index], ...data.dataSet }
+      this.items[data.index] = newObj
       this.saveItems()
     },
     saveItems() {

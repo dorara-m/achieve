@@ -15,8 +15,8 @@
       :percentHouse="item.percentHouse"
       :percentHobby="item.percentHobby"
       :memo="item.memo"
-      @update="dataUpdate"
-      @delete="dataDelete(item.date)"
+      @update="dataUpdate($event, i)"
+      @delete="dataDelete(i)"
     />
   </ul>
 </template>
@@ -29,16 +29,18 @@ export default {
   props: [
     'items'
   ],
-  emits: ['delete'],
   components: {
     LogItem
   },
   methods: {
-    dataDelete: function(date) {
-      this.$emit('delete', date)
+    dataDelete: function(index) {
+      this.$emit('delete', index)
     },
-    dataUpdate: function(dataSet) {
-      this.$emit('update', dataSet)
+    dataUpdate: function(dataSet, index) {
+      this.$emit('update', {
+        dataSet: dataSet,
+        index: index
+      })
     }
   }
 }
