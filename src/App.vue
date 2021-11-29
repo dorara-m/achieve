@@ -3,7 +3,7 @@
   <p>日々の予定達成率を記録していくアプリです。Vueのビルドツール「Vite」をつかっています。</p>
   <!-- <button @click="sample">サンプル</button> -->
   <!-- <p>{{ items }}</p> -->
-  <InputArea v-on:add="handleAdd" />
+  <InputArea @add="handleAdd" />
   <LogArea :items="items" @delete="handleDelete" @update="handleUpdate" />
   <!-- <AverageArea :val="items" /> -->
 </template>
@@ -52,60 +52,17 @@ export default {
     },
     // データ追加の処理
     handleAdd: function(dataSet) {
-      
-      // 日付を分解して、重複するデータがないか検索
-      const dayArray = dataSet.date.split('-');
-      const year = dayArray[0]
-      const month = '0' + dayArray[1]
-      const day = '0' + dayArray[2]
-
-      // 日付は分解したら保存する必要はないので、dataSetから日付を取り除いておく
-      // 複製
-      // const formattedDataSet = Object.assign(dataSet);
-      // 複製したものからdateを削除
-      // delete formattedDataSet.date
-
-      // ここでまず年が一致するデータを探す
-      const yearIndex = Object.keys(this.items).indexOf(year)
-      if (yearIndex !== -1) {
-        // あった場合、さらに月があるか検索
-        const monthIndex = Object.keys(this.items[year]).indexOf(month)
-        if (monthIndex !== -1) {
-          // 月があった場合
-          const dayIndex = Object.keys(this.items[year][month]).indexOf(day)
-          if (dayIndex !== -1) {
-            // 日があった場合
-            console.log(day+'日はあったよ')
-          }
-          // 結局どっちでもデータ入れる処理は同じ
-          this.items[year][month][day] = dataSet
-        } else {
-          console.log(month+'月がなかったよ')
-          // 月をつくる（空オブジェクトをわたす
-          this.items[year][month] = {}
-          // 実際のデータを挿入
-          this.items[year][month][day] = dataSet
-        }
-      } else {
-        // 当てはまる年がなかったら年の枠を作る
-        console.log(year+'年がなかったよ')
-        // 年と月をつくる（空オブジェクトをわたす
-        this.items[year] = {}
-        this.items[year][month] = {}
-        // 実際のデータを挿入
-        this.items[year][month][day] = dataSet
-      }
-
+      //@todo 重複した場合alert
+      this.items.push(dataSet)
+      //@todo 並び替える処理をしてからfirebaseに保存
       this.saveItems()
     },
     handleDelete: function(index) {
       // オブジェクトの削除
-      console.log(index)
       this.items.splice(index, 1)
       this.saveItems()
     },
     handleUpdate: function(data) {
-      console.log(data.dataSet)
       // 送られてくる編集後のデータと、元あるデータを結合↓
       const newObj = { ...this.items[data.index], ...data.dataSet }
       this.items[data.index] = newObj

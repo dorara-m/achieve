@@ -62,8 +62,8 @@ npm run dev
       [x] sample.jsonつくる。jsonなのであくまでfirebase時はオブジェクトなのに注意。
       [x] logAreaを対応（表示
       [x] 編集, 削除対応
-      [ ] inputを対応
-        [ ] マークアップを綺麗に@doing
+      [x] inputを対応
+        [ ] マークアップを綺麗に@後回し
           [x] headlessUIを導入→スタイルパーツと思って導入したが機能のみのパーツだった、、
           [x] scssに対応。`npm install -D sass`だけで動いた。
       [ ] 並び替え処理。降順をデフォ。inputの時点で時系列でちゃんと入るようにしておく。

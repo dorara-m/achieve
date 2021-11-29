@@ -1,122 +1,109 @@
 <template>
-  <h2>達成率を入力してください。</h2>
-  <!-- 以下のinput系をコンポーネントにわける? -->
-  <div class="inputWrap">
-    <div class="inputItem">
-      <div class="inputItem_ttl">日付</div>
-      <input name="theDay" type="date" ref="day">
+  <!-- @todo 繰り返し出てくるパーツはコンポーネントにわける -->
+  <div class="inputArea">
+    <input name="theDay" type="date" v-model="theDay">
+    
+    <div class="inputArea_select">
+      <p>仕事%</p>
+      <select name="" id="" v-model="selectedPercentWork">
+        <option v-for="num in percents" :key="num">{{num}}</option>
+      </select>
     </div>
-    <div class="inputFlex">
-      <div class="inputItem">
-        <div class="inputItem_ttl">仕事</div>
-        <p>達成率</p>
-        <input name="thePercent" type="number" ref="percent_work">
-        <p>ふり返り</p>
-        <textarea name="theMemo" ref="memo" id="" cols="30" rows="10"></textarea>
-      </div>
-      <div class="inputItem">
-        <div class="inputItem_ttl">家事</div>
-        <p>達成率</p>
-        <input name="thePercent" type="number" ref="percent_house">
-        <p>ふり返り</p>
-        <textarea name="theMemo" ref="memo1" id="" cols="30" rows="10"></textarea>
-      </div>
-      <div class="inputItem">
-        <div class="inputItem_ttl">趣味</div>
-        <p>達成率</p>
-        <input name="thePercent" type="number" ref="percent_hobby">
-        <p>ふり返り</p>
-        <textarea name="theMemo" ref="memo2" id="" cols="30" rows="10"></textarea>
-      </div>
+    
+    <div class="inputArea_select">
+      <p>家事%</p>
+      <select name="" id="" v-model="selectedPercentHouse">
+        <option v-for="num in percents" :key="num">{{num}}</option>
+      </select>
     </div>
+
+
+    <div class="inputArea_select">
+      <p>趣味%</p>
+      <select name="" id="" v-model="selectedPercentHobby">
+        <option v-for="num in percents" :key="num">{{num}}</option>
+      </select>
+    </div>    
+
+    <div class="inputArea_text">
+      <textarea name="theNotes" v-model="texts" id="" cols="30" rows="10"></textarea>
+    </div>
+    <button class="button" @click="sendItem">登録</button>
   </div>
-  <button class="addBtn" @click="sendItem">追加</button>
 </template>
 
 <script>
 export default {
   name: 'InputArea',
+  components: { Listbox, ListboxButton, ListboxOptions, ListboxOption },
+  data() {
+    return {
+      theDay: '2021-11-01',
+      percents: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+      selectedPercentWork: 0,
+      selectedPercentHouse: 0,
+      selectedPercentHobby: 0,
+      texts: ''
+    }
+  },
   methods: {
-    // 今日の日付をデフォルトで設定する。
+    // @todo 今日の日付をデフォルトで設定する。
 
     sendItem: function() {
-      const theDate = this.$refs.day
-      const theMemo = this.$refs.memo
-      const theMemo1 = this.$refs.memo1
-      const theMemo2 = this.$refs.memo2
-      const thePercentWork = this.$refs.percent_work
-      const thePercentHouse = this.$refs.percent_house
-      const thePercentHobby = this.$refs.percent_hobby
-      
-      if (!theDate.value.length) {
-        alert('日付の指定を忘れてますよ！')
-        return
-      }
-      // 各%が未入力なら0が入るように設定。
-      if (!thePercentWork.value.length) {
-        thePercentWork.value = 0
-      }
-      if (!thePercentHouse.value.length) {
-        thePercentHouse.value = 0
-      }
-      if (!thePercentHobby.value.length) {
-        thePercentHobby.value = 0
-      }
+      const check = window.confirm(`日付${this.theDay}で以下のデータを投稿しますか？\n仕事：${this.selectedPercentWork}\n家事：${this.selectedPercentHouse}\n趣味：${this.selectedPercentHobby}\n${this.texts}`)
 
-      this.$emit('add', {
-        date: theDate.value,
-        work: {
-          percent: thePercentWork.value,
-          memo: theMemo.value
-        },
-        house: {
-          percent: thePercentHouse.value,
-          memo: theMemo1.value
-        },
-        hobby: {
-          percent: thePercentHobby.value,
-          memo: theMemo2.value
-        }
-      })
-      theDate.value = ''
-      thePercentWork.value = ''
-      thePercentHouse.value = ''
-      thePercentHobby.value = ''
-      theMemo.value = ''
-      theMemo1.value = ''
-      theMemo2.value = ''
-
+      if (check) {
+        this.$emit('add', {
+          date: this.theDay,
+          percentWork: this.selectedPercentWork,
+          percentHouse: this.selectedPercentHouse,
+          percentHobby: this.selectedPercentHobby,
+          memo: this.texts
+        })
+        this.theDay = ''
+        this.selectedPercentWork = 0
+        this.selectedPercentHouse = 0
+        this.selectedPercentHobby = 0
+        this.texts = ''
+        console.log('投稿しました！')
+      } else {
+        console.log('投稿しませんでした！！')
+      }
+      // if (!theDate.value.length) {
+      //   alert('日付の指定を忘れてますよ！')
+      //   return
+      // }
     }
   }
 }
 </script>
 
-<style scoped>
-  .inputWrap {
-    background-color: #ddd;
-    padding: 10px;
+<style lang="scss" scoped>
+  .inputArea {
+    background-color: #bbb;
+    padding: 30px;
+    width: 600px;
+    margin: 0 auto;
+
+    &_select {
+      margin-top: 10px;
+      > button {
+        width: 100px;
+        font-size: 15px;
+      }
+    }
+    &_text {
+      margin-top: 20px;
+    }
   }
-  .inputItem {
-    margin-top: 10px;
-  }
-  p {
-    margin: 0;
-  }
-  .inputItem_ttl {
-    font-weight: bold;
-    font-size: 18px;
-  }
-  .inputFlex {
-    display: flex;
-    justify-content: center;
-  }
-  .inputFlex .inputItem {
-    margin: 10px 15px; 
-  }
-  .addBtn {
+  
+  .button {
     margin-top: 20px;
-    width: 200px;
-    font-size: 15px;
+    display: block;
+    width: 100px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
   }
 </style>
