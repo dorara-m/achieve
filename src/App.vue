@@ -54,7 +54,7 @@ export default {
     handleAdd: function(dataSet) {
       //@todo 重複した場合alert
       this.items.push(dataSet)
-      //@todo 並び替える処理をしてからfirebaseに保存
+      this.sortItems()
       this.saveItems()
     },
     handleDelete: function(index) {
@@ -71,6 +71,14 @@ export default {
     saveItems() {
       const db = getDatabase()
       set(ref(db, '/'), this.items)
+    },
+    sortItems() {
+      console.log(this.items)
+      this.items.sort(function(a,b) {
+        return new Date(b.date) - new Date(a.date)
+      })
+      console.log(this.items)
+      console.log('sorted')
     }
   },
 

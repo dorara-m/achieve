@@ -35,7 +35,6 @@
 <script>
 export default {
   name: 'InputArea',
-  components: { Listbox, ListboxButton, ListboxOptions, ListboxOption },
   data() {
     return {
       theDay: '2021-11-01',
@@ -55,6 +54,9 @@ export default {
       if (check) {
         this.$emit('add', {
           date: this.theDay,
+          year: this.theDay.split('-')[0],
+          month: this.theDay.split('-')[1],
+          day: this.theDay.split('-')[2],
           percentWork: this.selectedPercentWork,
           percentHouse: this.selectedPercentHouse,
           percentHobby: this.selectedPercentHobby,
