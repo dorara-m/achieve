@@ -9,8 +9,8 @@
 </template>
 
 <script>
-// 同階層にfirebaseのキーを記述したfirebaseConfigを置いてください。
-import firebaseConfig from './firebaseConfig'
+// import firebaseConfig from './firebaseConfig'
+import firebaseConfig from './env'
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import InputArea from './components/InputArea.vue'
