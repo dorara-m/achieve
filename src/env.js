@@ -1,10 +1,10 @@
 export default {
-  apiKey: process.env.DB_APIKEY,
-  authDomain: process.env.DB_AUTHDOMAIN,
-  databaseURL: process.env.DB_DATABASEURL,
-  projectId: process.env.DB_PROJECTID,
-  storageBucket: process.env.DB_STORAGEBUCKET,
-  messagingSenderId: process.env.DB_MESSAGINGSENDERID,
-  appId: process.env.DB_APPID,
-  measurementId: process.env.DB_MEASUREMENTID
+  apiKey: process.env.VUE_APP_APIKEY,
+  appId: process.env.VUE_APP_APPID,
+  authDomain: process.env.VUE_APP_AUTHDOMAIN,
+  databaseURL: process.env.VUE_APP_DATABASEURL,
+  measurementId: process.env.VUE_APP_MEASUREMENTID,
+  messagingSenderId: process.env.VUE_APP_MESSAGINGSENDERID,
+  projectId: process.env.VUE_APP_PROJECTID,
+  storageBucket: process.env.VUE_APP_STORAGEBUCKET
 }
