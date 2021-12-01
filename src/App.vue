@@ -9,7 +9,6 @@
 </template>
 
 <script>
-// import firebaseConfig from './firebaseConfig'
 import firebaseConfig from './env'
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set, onValue } from "firebase/database";
